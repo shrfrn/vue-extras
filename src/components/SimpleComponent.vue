@@ -20,6 +20,7 @@ export default {
     },
     mounted() {
         this.$refs.num.focus()
+        this.$refs.num.style.backgroundColor = '#9ce'
     }
 }
 </script>

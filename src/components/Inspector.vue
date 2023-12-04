@@ -36,6 +36,7 @@ export default {
     top: 10px;
     right: 10px;
     padding: 5px;
+    border-radius: 0;
 
     width: min-content;
     height: min-content;
@@ -43,9 +44,10 @@ export default {
     border: 1px solid lightgray;
     box-shadow: 2px 1px 6px rgb(219, 219, 219);
     background-color: whitesmoke;
-    // transition: all .6s;
 
     overflow: scroll;
+    cursor: pointer;
+    
     .data h2, .props h2{
         font-weight: bold;
         background-color: lightgray;
