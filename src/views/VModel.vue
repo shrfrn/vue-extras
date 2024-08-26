@@ -1,42 +1,62 @@
 
 <template>
     <main>
-        <h1>Custom Input Component with v-model</h1>
+        <h1>Custom Input Components with v-model</h1>
         
-        <CustomVModel v-model="txt"/>
-        <CustomVModelTime v-model:min="min" v-model:sec="sec"/>
-        <CustomTagsInput />
+        <!-- For native DOM elements: -->
+        <label>
+            <span>Native: </span>
+            <input :value="txt" @input="txt = $event.target.value" type="text">
+            <!-- <input v-model="txt" type="text"> -->
+        </label>
+
+        <!-- For custom components: -->
+        <label>
+            <span>Custom (default): </span>
+            <CustomVModel :modelValue="txt" @update:modelValue="updatedVal => txt = updatedVal"/>
+            <!-- <CustomVModel v-model="txt" /> -->
+        </label>
+
+        <!-- We can use v-model:arg to rename the prop -->
+        <label>
+            <span>Custom (arg): </span>
+            <CustomInput :txt="txt" @update:txt="updatedVal => txt = updatedVal" />
+            <!-- <CustomInput v-model:txt="txt" /> -->
+        </label>
+
+        <h2>Tag Input</h2>
         <CustomVModelTags v-model:tags="tags" />
-        
         <Inspector />
     </main>
 </template>
 
 <script>
-import CustomVModel from '@/components/CustomVModel.vue'
-import CustomVModelTime from '@/components/CustomVModelTime.vue'
-import CustomTagsInput from '@/components/CustomTagsInput.vue'
-import CustomVModelTags from '@/components/CustomVModelTags.vue'
+import CustomVModelTags from '../components/CustomVModelTags.vue'
+import CustomVModel from '../components/CustomVModel.vue';
+import CustomInput from '../components/CustomInput.vue';
 
 export default{
     data(){
         return {
             txt: '',
-            min: 0,
-            sec: 0,
             tags: ['Hello', 'World']
         }
     },
     components:{
         CustomVModel,
-        CustomVModelTime,
-        CustomTagsInput,
         CustomVModelTags,
+        CustomInput,
     },
 }
 </script>
+
 <style>
+main {
+    display: flex;
+    flex-direction: column;
+}
+
 main > * {
-    margin-bottom: 20px;
+    margin-bottom: 1em;
 }
 </style>

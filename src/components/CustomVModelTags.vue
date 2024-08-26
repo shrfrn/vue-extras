@@ -19,7 +19,7 @@
         data(){
             return {
                 txt: '',
-                tagList: []
+                tagList: this.tags
             }
         },
         methods:{
