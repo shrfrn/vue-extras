@@ -19,8 +19,11 @@
         data(){
             return {
                 txt: '',
-                tagList: this.tags
+                tagList: [],
             }
+        },
+        created() {
+            this.tagList = this.tags.slice()
         },
         methods:{
             addTag(){
