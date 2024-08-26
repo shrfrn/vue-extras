@@ -19,23 +19,24 @@
         data(){
             return {
                 txt: '',
+                tagList: []
             }
         },
         methods:{
             addTag(){
                 if(!this.txt) return
-                this.tags.push(this.txt)
+                this.tagList.push(this.txt)
                 this.txt = ''
-                this.$emit('update:tags', this.tags)
+                this.$emit('update:tags', this.tagList)
             },
             popTag(){
                 if(this.txt) return
                 this.tags.pop()
-                this.$emit('update:tags', this.tags)
+                this.$emit('update:tags', this.tagList)
             },
             removeTag(idx){
                 this.tags.splice(idx, 1)
-                this.$emit('update:tags', this.tags)
+                this.$emit('update:tags', this.tagList)
             }
         }
     }
