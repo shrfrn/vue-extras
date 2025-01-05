@@ -26,6 +26,5 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-.vscode/extensions.json
-public/favicon.ico
-README.md
+
+*.tsbuildinfo
