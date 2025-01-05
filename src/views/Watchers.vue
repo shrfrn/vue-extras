@@ -1,4 +1,5 @@
 <template>
+    <h2>Demo I</h2>
 	<section class="yesno">
 		<p>
 			Ask a yes/no question:
@@ -7,9 +8,11 @@
 		<p>{{ answer }}</p>
 	</section>
 
+    <h2>Demo II</h2>
 	<section class="car">
 		<input v-model="car.vendor" />
 		<button @click="onChangeCar">Change car</button>
+		<button @click="onChangeVendor">Change vendor</button>
 	</section>
 	<Inspector />
 </template>
@@ -63,15 +66,22 @@ export default {
 		onChangeCar() {
 			this.car = { vendor: 'Susila', speed: 1 }
 		},
+		onChangeVendor() {
+			this.car.vendor = 'Susila'
+		},
 	},
 }
 </script>
 
 <style lang="scss">
-.yesno,
-.car {
+.yesno, .car {
 	background-color: lightgray;
 	padding: 10px;
-	margin-block-start: 4em;
+    margin-block-end: 4em;
+}
+
+.car {
+    display: flex;
+    gap: .5em;
 }
 </style>
