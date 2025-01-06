@@ -1,4 +1,5 @@
 <template>
+    <h1 ref="heading">Using <span>$refs</span> to directly access DOM elements</h1>
     <section class="simple-component">
         <input v-model="txt" type="text" />
         <input v-model="num" type="number" ref="num"/>
@@ -18,9 +19,23 @@ export default {
             user: { name: 'puki', age: 20 },
         }
     },
+    methods: {
+        logMouseCoords({ clientX, clientY }) {
+            console.log(clientX, clientY)
+        },
+        getHeadingSize() {
+            const rect = this.$refs.heading.getBoundingClientRect()
+            console.log(rect)
+        }
+    },
     mounted() {
+        addEventListener('resize', this.getHeadingSize)
         this.$refs.num.focus()
-        this.$refs.num.style.backgroundColor = '#9ce'
+        this.$refs.num.addEventListener('mousemove', this.logMouseCoords)
+    },
+    beforeUnmount() {
+        removeEventListener('resize', this.getHeadingSize)
+        this.$refs.num.removeEventListener('mousemove', this.logMouseCoords)
     }
 }
 </script>
@@ -31,13 +46,14 @@ export default {
     flex-direction: column;
     align-items: start;
 
-    width: 300px;
+    width: max-content;
     background-color: lightgray;
     padding: 10px;
-    margin-block-start: 4em;
+    margin: 4em auto 0;
 
     & > input:not(:last-child) {
         margin-block-end: 10px;
     }
 }
+
 </style>
