@@ -1,4 +1,6 @@
 <template>
+    <h1>Using <span>watchers</span> to react to state changes</h1>
+
     <h2>Demo I</h2>
 	<section class="yesno">
 		<p>
@@ -73,7 +75,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+h1 {
+    margin-block-end: 2em;
+}
+
 .yesno, .car {
 	background-color: lightgray;
 	padding: 10px;
