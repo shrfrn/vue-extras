@@ -1,13 +1,13 @@
 
 <template>
     <main>
-        <h1>Custom Input Components with v-model</h1>
+        <h1>Custom Input Components with <span>v-model</span></h1>
         
         <!-- For native DOM elements: -->
         <label>
             <span>Native: </span>
-            <input :value="txt" @input="txt = $event.target.value" type="text">
-            <!-- <input v-model="txt" type="text"> -->
+            <input v-model="txt" type="text">
+            <!-- <input :value="txt" @input="txt = $event.target.value" type="text"> -->
         </label>
 
         <!-- For custom components: -->
@@ -25,7 +25,7 @@
         </label>
 
         <h2>Tag Input</h2>
-        <CustomVModelTags v-model:tags="tags" />
+        <CustomVModelTags v-model:tags.capitalize.reverse="tags" />
         <Inspector />
     </main>
 </template>

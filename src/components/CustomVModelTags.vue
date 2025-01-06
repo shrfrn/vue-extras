@@ -14,6 +14,9 @@
             tags: {
                 type: Array,
                 required: true,
+            },
+            tagsModifiers: {
+                default: {}
             }
         },
         data(){
@@ -24,22 +27,31 @@
         },
         created() {
             this.tagList = this.tags.slice()
+            console.log(this.tagsModifiers)
         },
         methods:{
             addTag(){
                 if(!this.txt) return
-                this.tagList.push(this.txt)
+
+                let txt = this.txt
+                if (this.tagsModifiers.capitalize) {
+                    txt = txt.at(0).toUpperCase() + txt.slice(1)
+                }
+                if (this.tagsModifiers.reverse) {
+                    txt = txt.split('').reverse().join('')
+                }
+                this.tagList.push(txt)
                 this.txt = ''
-                this.$emit('update:tags', this.tagList)
+                this.$emit('update:tags', [...this.tagList])
             },
             popTag(){
                 if(this.txt) return
-                this.tags.pop()
-                this.$emit('update:tags', this.tagList)
+                this.tagList.pop()
+                this.$emit('update:tags', [...this.tagList])
             },
             removeTag(idx){
-                this.tags.splice(idx, 1)
-                this.$emit('update:tags', this.tagList)
+                this.tagList.splice(idx, 1)
+                this.$emit('update:tags', [...this.tagList])
             }
         }
     }

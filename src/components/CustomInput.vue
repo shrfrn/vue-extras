@@ -1,5 +1,5 @@
 <template>
-    <input :value="txt" @input="onInput" type="text">
+    <input :value="str" @input="onInput" type="text">
 </template>
 
 <script>
@@ -10,9 +10,18 @@
                 default: '',
             }
         },
+        data() {
+            return {
+                str: '',
+            }
+        },
+        created() {
+            this.str = this.txt
+        },
         methods:{
             onInput(ev){
-                this.$emit('update:txt', ev.target.value)
+                this.str = ev.target.value
+                this.$emit('update:txt', this.str)
             }
         }
     }
