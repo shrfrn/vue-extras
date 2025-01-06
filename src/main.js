@@ -2,9 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import {trackmouse} from '@/directives/trackmouse.js'
-import {clickout} from '@/directives/clickout.js'
-import {colorful} from '@/directives/colorful.js'
+import { trackmouse } from '@/directives/trackmouse.js'
+import { clickout } from '@/directives/clickout.js'
+import { colorful } from '@/directives/colorful.js'
 
 import Inspector from '@/components/Inspector.vue'
 
