@@ -1,22 +1,18 @@
 <template>
-    <h1>Auto Focus</h1>
-    <div class="demo">
-        <input type="text" placeholder="not focused" />
-        <input
-            v-autofocus
-            type="text"
-            placeholder="this input is autofocused..."
-        />
-    </div>
 
     <h1 v-colorful:click>Colorful</h1>
-    <div class="demo" track>
+    <div class="demo">
         <input v-colorful type="text" />
     </div>
 
-    <h1>On Focus</h1>
+    <h1 v-debounce:click.1000="onClick">Debounce</h1>
     <div class="demo">
-        <input v-focus="onFocus" type="text" />
+        <input v-debounce.1000="onInput" type="text" />
+    </div>
+
+    <h1 @click="onClick" v-throttle:click.1000="onThrottledClick" ref="heading">Throttle</h1>
+    <div v-throttle:mousemove.300="onThrottledMouseMove" class="demo">
+        <h2>Move the mouse over me...</h2>
     </div>
 
     <h1>Click Outside</h1>
@@ -29,29 +25,15 @@
             trackMouse ? 'Stop Tracking' : 'Start Tracking'
         }}</button>
     </div>
-
-    <h1 track>Track Event</h1>
-    <input type="text" track />
-    <p>baba</p>
-
-    <div v-trackevent:[evType]="tracker" class="demo trackevent">
-        <h3 class="coords">x:{{ ev.x }} , y:{{ ev.y }}</h3>
-        <button @click="trackEvent = !trackEvent">{{
-            trackEvent ? 'Stop Tracking' : 'Start Tracking'
-        }}</button>
-        <button @click="toggleEvType">{{
-            evType === 'click' ? 'mousemove' : 'click'
-        }}</button>
-    </div>
+    
 </template>
 
 <script>
-import { autofocus } from '@/directives/autofocus.js'
 import { colorful } from '@/directives/colorful.js'
-import { focus } from '@/directives/focus.js'
 import { clickout } from '@/directives/clickout.js'
 import { trackmouse } from '@/directives/trackmouse.js'
-import { trackevent } from '@/directives/trackevent.js'
+import { debounce } from '@/directives/debounce.js'
+import { throttle } from '@/directives/throttle.js'
 
 export default {
     data() {
@@ -66,13 +48,24 @@ export default {
         }
     },
     methods: {
+        onInput(ev) {
+            console.log(ev.target.value)
+        },
+        onClick(ev) {
+            console.log('clicked on', ev.target)
+        },
+        onThrottledClick() {
+            this.$refs.heading.innerText += '.'
+        },
+        onThrottledMouseMove({ clientX, clientY }) {
+            console.log(clientX, clientY)
+        },
         onFocus(el) {
             console.log('got focus', el)
         },
         onClickOutside() {
             this.clickedOutside = true
             setTimeout(() => this.clickedOutside = false, 1000)
-            console.log('clicked outside..')
         },
         onMouseMove(x, y) {
             this.mouse.x = x 
@@ -93,12 +86,11 @@ export default {
         bgcClass(){ return this.clickedOutside ? 'clicked-outside' : '' }
     },
     directives: {
-        autofocus,
         colorful,
-        focus,
         clickout,
         trackmouse,
-        trackevent,
+        debounce,
+        throttle,
     },
 }
 </script>
@@ -106,7 +98,15 @@ export default {
 <style lang="scss">
 h1 {
     margin-block-start: 30px;
+    user-select: none;
+    cursor: pointer;
+    color: black;
+
+    &:active {
+        background-color: whitesmoke;
+    }
 }
+
 h3 {
     font-family: monospace;
 }

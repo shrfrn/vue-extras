@@ -1,26 +1,12 @@
 export const colorful = {
 
     mounted(el, binding) {
-        const { dir, arg } = binding
+        const { arg } = binding
         const event = arg ? arg : 'input'
-
-        dir._handler = () => setRandomColor(el)
-        dir._event = event
         
-        el.addEventListener(event, dir._handler)
+        el.addEventListener(event, () => 
+            el.style.backgroundColor = getRandomColor())
     },
-    
-    unmounted(el, binding) {
-        const { dir } = binding
-        el.removeEventListener(dir._event, dir._handler)
-        
-        delete dir._handler
-        delete dir._event
-    },
-}
-
-function setRandomColor(el) {
-    el.style.backgroundColor = getRandomColor()
 }
 
 function getRandomColor() {
